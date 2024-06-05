@@ -42,13 +42,19 @@ param = class_to_dict(mpc_params)
 init_state = class_to_dict(init_state)
 solver = ISMPCSolver(**param)
 dt = mpc_params.dt
-first = int(3 / dt)
+first = int(4 / dt)
 second = int(10 / dt)
-vx = np.concatenate((np.ones(first) * 0.6, np.ones(second) * 0.3))
-vy = np.concatenate((np.ones(first) * 0, np.ones(second) * 0.3))
-w = np.ones(first + second) * 0.0
+# vx = np.concatenate((np.ones(first) * 0.3, np.ones(second) * -0.3))
+# vy = np.concatenate((np.ones(first) * 0.2, np.ones(second) * 0.2))
+# w = np.ones(first + second) * 0.0
+# vx = np.tile(vx, 3)
+# vy = np.tile(vy, 3)
+# w = np.tile(w, 3)
+vx = np.concatenate((np.ones(first) * 0.4, np.ones(second) * 0.4))
+vy = np.concatenate((np.ones(first) * 0, np.ones(second) * 0))
+w = np.concatenate((np.ones(first) * 0.3, np.ones(second) * -0.3))
 solver.ref_velocity(vx, vy, w)
-solver.runMPC(5, **init_state)
+solver.runMPC(10, **init_state,index = 3)
 
 
 

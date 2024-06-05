@@ -626,7 +626,7 @@ class ISMPCSolver:
     def runMPC(self,t_end,xc,yc,dxc,dyc,zmp_x,zmp_y,
               left_foot_x,left_foot_y,left_foot_z,left_foot_theta,
                 right_foot_x,right_foot_y,right_foot_z,right_foot_theta,
-               stand_foot):
+               stand_foot,index = 1):
         num = int(t_end / self.dt)
         self.foot_x = np.array([])
         self.foot_y = np.array([])
@@ -688,7 +688,7 @@ class ISMPCSolver:
             self.right_foot_y_traj[i+1] = right_foot[1]
             self.right_foot_z_traj[i+1] = right_foot[2]
             self.right_foot_theta_traj[i+1] = right_foot[3]
-        self.plot_mpc(num)
+        self.plot_mpc(num,index)
     
     def print_info(self):
         print("self.current_time",self.current_time)
@@ -751,7 +751,7 @@ class ISMPCSolver:
         ax.plot(self.footstep_index_sequence)
         plt.show()
 
-    def plot_mpc(self,num):
+    def plot_mpc(self,num,index):
         # --------------- 2D ----------------
         fig = plt.figure(figsize=(16, 8))
         ax = fig.add_subplot(111)
@@ -782,6 +782,7 @@ class ISMPCSolver:
                                         angle=self.foot_theta[i] * 180 / np.pi, rotation_point='center',
                                         fill=False, color=color[i%2])
             ax.add_patch(rectangle)
+        plt.savefig('./log/xy_plane'+str(index)+'.jpg')
         # -------------------------------
         fig = plt.figure(figsize=(16, 8))
         ax = fig.add_subplot(111)
@@ -795,6 +796,7 @@ class ISMPCSolver:
         plt.ylabel("v (m/s)", fontdict={'family': 'Times New Roman', 'size': 16})
         plt.yticks(fontproperties='Times New Roman', size=14)
         plt.xticks(fontproperties='Times New Roman', size=14)
+        plt.savefig('./log/velocity'+str(index)+'.jpg')
         # -------------- 3D -----------------
         max_x = max(max(self.left_foot_x_traj),max(self.right_foot_x_traj))
         min_x = min(min(self.left_foot_x_traj),min(self.right_foot_x_traj))
@@ -809,9 +811,10 @@ class ISMPCSolver:
         ax2.plot3D(self.right_foot_x_traj,self.right_foot_y_traj,self.right_foot_z_traj,'blue')
         ax2.plot3D(com[0,:],com[1,:],com[2,:],'green')
         plt.grid()
+        plt.savefig('./log/3D'+str(index)+'.jpg')
         # -----------------------------------
         fig = plt.figure()
-        t = 2
+        t = 3
         n = int(t/self.dt)
         ax3 = plt.axes(projection='3d')
         ax3.set_xlim(min_x-0.1,max_x+0.1)
@@ -843,7 +846,7 @@ class ISMPCSolver:
             return line1,line2,line3
         frames = len(self.left_foot_x_traj)-1
         ani = animation.FuncAnimation(fig, animate, frames=frames, interval=100,repeat=True,blit = True)
-        ani.save('test.gif', writer='pillow', fps=10)
+        ani.save('./log/3d_walk'+str(index)+'.gif', writer='pillow', fps=10)
         plt.show()
      
     
