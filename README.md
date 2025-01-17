@@ -19,7 +19,7 @@ matplotlib
 ## QP problem
 
 $$
-\min_{\begin{array}{c}\dot{X}_z^k,\dot{Y}_z\\X_f,Y_f\end{array}}\|\dot{X}_z^k\|^2+\|\dot{Y}_z^k\|^2+\beta(\|X_f-\hat{X}_f\|^2+\|Y_f-\hat{Y}_f\|^2)
+\min_{\begin{array}{c}\dot{X}_z^k,\dot{Y}_z,X_f,Y_f \end{array}}\|\dot{X}_z^k\|^2+\|\dot{Y}_z^k\|^2+\beta(\|X_f-\hat{X}_f\|^2+\|Y_f-\hat{Y}_f\|^2)
 $$
 
 **Constrains**:Kinematic Constrains,ZMP Position Constrains,Stability Constraint and ZMP Velocity Constraint
@@ -29,6 +29,7 @@ $$
 #### Kinematic Constrains
 
 <div align=center><img src="./pic/image-2.png" width="70%"></div>
+
 
 $$
 \pm\binom0\ell-\frac12\binom{d_{a,x}}{d_{a,y}}\leq R_{j-1}^T\binom{\hat{x}_f^j-\hat{x}_f^{j-1}}{\hat{y}_f^j-\hat{y}_f^{j-1}}\leq\pm\binom0\ell+\frac12\binom{d_{a,x}}{d_{a,y}}
