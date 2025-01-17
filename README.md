@@ -5,8 +5,11 @@ This repository is an implementation in python code of the MPC gait generation d
 ## Requirements
 
 matplotlib
+
 ​numpy
+
 ​scipy
+
 ​[qpsolvers](https://pypi.org/project/qpsolvers/)
 
 ## Control Framework
